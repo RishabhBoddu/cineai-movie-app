@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cinesuggest-app:latest
+    container_name: cinesuggest-platform
+    ports:
+      - "8000:8000"
+    volumes:
+      - sqlite_data:/workspace/backend_data
+    environment:
+      - SECRET_KEY=9a7c36a4f108d8de95d52bbefb9087cdce2304918e7e174b8893d3958742b6a2
+      - DATABASE_URL=sqlite:////workspace/backend_data/movie_rec.db
+      - TMDB_API_KEY=
+    restart: unless-stopped
+
+volumes:
+  sqlite_data:
